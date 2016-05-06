@@ -6,7 +6,7 @@ The script recursively scans hdfs directories with "hdfs dfs -du" command (you c
 Example run:
 ------------
 ```
-python hdfs-consume.py -i / > consume.out
+python hdfs-consume.py -o consume.out /
 ```
 Output:
 ```
