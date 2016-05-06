@@ -28,5 +28,5 @@ Arguments:
 |--log FILENAME, -l FILENAME         |Logfile name                       |/tmp/hdfs-consume.log|no|
 |--verbosity, -v                     |Logging level, use -vvvv to debug  |1 (ERROR)          | no|
 |--cmd CMD                           |Command string for running "hdfs -du" as subprocess|"sudo -u hdfs hdfs dfs -du"|no|
-|--interactive, -i                   |Print scanning progress            |False | no
+|--output FILENAME, -o FILENAME      |Name of file to print result list  | | yes
 |path                                |Path to start scanning             |'/'   | yes

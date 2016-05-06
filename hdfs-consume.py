@@ -78,15 +78,18 @@ if __name__ == '__main__':
   parser.add_argument ( '--log', '-l', help='Logfile name', metavar='FILENAME', default='/tmp/hdfs-consume.log' )
   parser.add_argument ( '--verbosity', '-v', action='count', help='Logging level, use -vvvv to debug', default=1 ) # logging.ERROR == 40,
   parser.add_argument ( '--cmd', help='Command string for running "hdfs -du" as subprocess', default='sudo -u hdfs hdfs dfs -du' )
-  parser.add_argument ( '--interactive', '-i', action='store_true', help="Print scanning progress", default=False )
+  parser.add_argument ( '--output', '-o', help="Output filename", required=True )
 
   config = parser.parse_args()
 
   logging.basicConfig(filename = config.log, level=50-10*config.verbosity)
+  logging.debug(config)
+
   sorted_list = sorted(
-                       du_recursive(config.path, config.threshold, maxlevel=config.depth, cmd=config.cmd, interactive=config.interactive),
+                       du_recursive(config.path, config.threshold, maxlevel=config.depth, cmd=config.cmd, interactive=True),
                        key=lambda k: k['size'],
                        reverse=True)
 
+  f = open (config.output, 'w')
   for item in sorted_list:
-    print '%-10s%s' % (humansize(item['size']), item['path'])
+    f.write( '%-10s%s\n' % (humansize(item['size']), item['path']))
